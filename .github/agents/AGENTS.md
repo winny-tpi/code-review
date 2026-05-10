@@ -10,14 +10,19 @@
 2.  **彈性專案建立**：Agent 根據模板 Skill 為新專案建立客製化的知識管理倉庫。
 3.  **自主跟版進化**：各專案 Agent 定期檢查模板更新，並提供智慧化的跟版建議，確保專案能自主進化。
 
+### 重要安全機制：人類授權 (Human Authorization)
+
+為確保 Agent 在公開倉庫中的操作安全，避免惡意或無效的 Issue 消耗資源，本模板引入了「人類授權」機制。Agent **只會處理**帶有 `approved` 標籤的 Issue。此標籤必須由倉庫擁有者或具有寫入權限的協作者手動添加。任何沒有 `approved` 標籤的 Issue 將被 Agent 完全忽略，不進行任何處理。這確保了所有 Agent 的自動化操作都在人類的明確授權下進行。
+
 ## 可用 Agent Skill
 
 以下是本倉庫定義的主要 Agent Skill 及其職責：
 
-*   **`issue-analyzer.agent.md`**：負責 GitHub Issue 的分析、LLM 呼叫、知識文件生成與 Issue 狀態更新。
+*   **`issue-analyzer.agent.md`**：負責 GitHub Issue 的分析、LLM 呼叫、知識文件生成與 Issue 狀態更新。**僅處理帶有 `approved` 標籤的 Issue。**
 *   **`project-creator.agent.md`**：負責根據用戶需求，建立新的專案知識倉庫並進行初始化配置。
-*   **`version-tracker.agent.md`**：負責監控模板倉庫的更新，比對差異，並生成跟版建議。
-*   **`common-utils.agent.md`**：提供一些共用的輔助功能或規範，供其他 Skill 引用。
+*   **`version-tracker.agent.md`**：負責監控模板倉庫的更新，比對差異，並生成跟版建議。跟版建議將以 Pull Request (PR) 形式提交，需經人類審核。
+*   **`common-utils.agent.md`**：提供一些共用的輔助功能、規範和安全策略，供其他 Skill 引用。
+*   **`template-advisor.agent.md`**：作為模板顧問，負責解答關於模板倉庫的問題。**重要安全機制**：所有對模板的優化都將透過 Pull Request (PR) 進行，需經人類審核後方可合併，確保模板的穩定性與安全性。**僅處理帶有 `approved` 標籤的 Issue。**
 
 ## 如何使用
 
@@ -26,4 +31,3 @@
 ## 版本與進化
 
 本模板倉庫會持續進化。請參考 `CHANGELOG.md` 了解版本更新歷史，並指示 `version-tracker.agent.md` 監控最新變化。
-*   **`template-advisor.agent.md`**：作為模板顧問，負責解答關於模板倉庫的問題。**重要安全機制**：所有對模板的優化都將透過 Pull Request (PR) 進行，需經人類審核後方可合併，確保模板的穩定性與安全性。

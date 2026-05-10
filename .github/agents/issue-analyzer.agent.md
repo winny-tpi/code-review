@@ -10,7 +10,8 @@
 
 ## 前置條件 (Preconditions)
 
-*   GitHub Issue 存在，且帶有 `status: pending-analysis` 標籤。
+*   GitHub Issue 存在，且**必須同時帶有 `status: pending-analysis` 和 `approved` 標籤**。
+*   `approved` 標籤只能由倉庫擁有者或具有寫入權限的協作者手動添加，這是觸發 Agent 執行任務的安全機制。
 *   已配置 `GEMINI_API_KEY` 作為環境變數或 GitHub Secret。
 *   可存取 `scripts/issue_analysis_core.py` 腳本。
 

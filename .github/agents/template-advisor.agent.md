@@ -13,7 +13,8 @@
 
 ## 前置條件 (Preconditions)
 
-*   GitHub Issue 存在於 `winny-tpi/code-review` 倉庫中。
+*   GitHub Issue 存在於 `winny-tpi/code-review` 倉庫中，且**必須帶有 `approved` 標籤**，Agent 才會進行處理。
+*   `approved` 標籤只能由倉庫擁有者或具有寫入權限的協作者手動添加，這是觸發 Agent 執行任務的安全機制。
 *   Agent 具備讀取和寫入 `code-review` 倉庫的權限。
 
 ## 輸入 (Input)
@@ -23,7 +24,9 @@
 
 ## 步驟 (Steps)
 
-1.  **讀取 Issue 內容**：
+1.  **檢查授權標籤**：
+    *   Agent 首先檢查 Issue `#{{issue_number}}` 是否帶有 `approved` 標籤。如果沒有，Agent 將忽略此 Issue，不進行任何處理。
+2.  **讀取 Issue 內容**：
     *   Agent 讀取 Issue `#{{issue_number}}` 的標題和描述，理解提問的具體內容。
 2.  **分析問題與提供指引**：
     *   根據 Issue 內容，Agent 判斷問題類型（例如：如何建立新專案、某個 Skill 的用法、模板結構的疑問等）。

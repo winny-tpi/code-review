@@ -20,6 +20,22 @@
 | `status: analyzing` | 藍色 | 表示排程系統已擷取該 Issue，目前 LLM 正在進行分析與文件生成。這可防止排程系統重複處理同一個 Issue。 |
 | `status: analyzed` | 綠色 | 表示 LLM 已完成分析，知識文件已生成並提交至倉庫，且已在 Issue 中留言回覆。開發者可以開始參考文件進行開發。 |
 | `status: analysis-failed` | 紅色 | 表示在擷取 Issue、呼叫 LLM API 或提交文件過程中發生錯誤。需要人工介入檢查日誌並排除問題。 |
+| `approved` | 紫色 | **人類授權標籤**：表示該 Issue 已由倉庫擁有者或協作者審核並批准，Agent 可以開始處理。這是觸發 Agent 執行任務的關鍵安全機制。 |
+
+### 安全策略：人類授權機制 (Human Authorization Mechanism)
+
+為確保 Agent 在公開倉庫中的操作安全，避免惡意或無效的 Issue 消耗資源，引入「人類授權」機制：
+
+*   **公開倉庫 (`winny-tpi/code-review`)**：
+    *   Agent **只會處理**帶有 `approved` 標籤的 Issue。
+    *   `approved` 標籤只能由倉庫擁有者或具有寫入權限的協作者手動添加。
+    *   任何沒有 `approved` 標籤的 Issue 將被 Agent 完全忽略，不進行任何處理。
+    *   流程：用戶發 Issue → 倉庫擁有者審核並手動添加 `approved` 標籤 → Agent 處理。
+
+*   **私有專案倉庫 (`winny-tpi/<project-name>`)**：
+    *   由於私有倉庫的 Issue 提交者通常已是授權成員，可以選擇性地啟用 `approved` 標籤機制。
+    *   預設情況下，私有倉庫的 Agent 可以自動處理所有帶有 `status: pending-analysis` 標籤的 Issue，無需額外的 `approved` 標籤。
+    *   若專案團隊希望在私有倉庫中也引入額外的審核層，則可選擇啟用 `approved` 標籤機制。
 
 ### LLM API 呼叫規範 (LLM API Call Standard)
 
