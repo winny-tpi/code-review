@@ -26,3 +26,4 @@
 ## 版本與進化
 
 本模板倉庫會持續進化。請參考 `CHANGELOG.md` 了解版本更新歷史，並指示 `version-tracker.agent.md` 監控最新變化。
+*   **`template-advisor.agent.md`**：作為模板顧問，負責解答關於模板倉庫的問題。**重要安全機制**：所有對模板的優化都將透過 Pull Request (PR) 進行，需經人類審核後方可合併，確保模板的穩定性與安全性。

@@ -32,16 +32,16 @@
     *   Agent 下載模板倉庫的關鍵文件（例如 `.github/agents/` 下的所有 `.agent.md`、`scripts/issue_analysis_core.py`、`.github/ISSUE_TEMPLATE/feature_request.md`、`.github/workflows/issue_analysis_cron.yml`）。
     *   Agent 將這些文件與當前專案倉庫中對應的文件進行內容差異比對。
     *   Agent 評估這些差異對專案現有流程的潛在影響（例如功能改進、錯誤修復、性能優化、潛在的破壞性變更）。
-5.  **生成更新建議報告**：
-    *   Agent 構建一份詳細的更新建議報告，以 GitHub Issue 或 Pull Request 的形式提交到當前專案知識倉庫。
-    *   報告內容應包含：
+5.  **生成更新建議報告 (透過 Pull Request)**：
+    *   Agent 構建一份詳細的更新建議報告。**所有涉及專案文件變更的跟版建議，必須以 Pull Request (PR) 的形式提交到當前專案知識倉庫。**
+    *   PR 內容應包含：
         *   模板倉庫的新版本號和 `CHANGELOG.md` 的摘要。
         *   具體的差異點和代碼片段。
         *   建議的更新方式和理由。
         *   更新可能帶來的收益和潛在風險。
         *   如果更新涉及配置變更，提供詳細的配置指南。
-6.  **完成通知**：
-    *   向專案團隊報告已生成更新建議，並建議審閱。
+    *   **人類審核**：此 PR 需經專案團隊成員審核並合併，確保跟版操作符合專案實際需求。
+    *   **完成通知**：向專案團隊報告已生成更新建議 PR，並建議審閱。
 
 ## 錯誤處理 (Error Handling)
 
